@@ -114,7 +114,7 @@ class GringottsChecker(Checker):
                 return False
         else:
             close_locs = self.get_close_locs()
-            if action[0] == 'destrodestroy':
+            if action[0] == 'destroy':
                 if action[1] in close_locs:
                     return True
                 else:
