@@ -11,5 +11,5 @@ class GringottsController:
         actual_loc = harry_loc
         self.get_next_action(self, initial_observations)
 
-    def get_next_action(self, observations):
+    def get_next_action(self, bservations):
         self.update_observations_map(self, observations)
