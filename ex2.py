@@ -3,12 +3,13 @@ ids = ['337927669','345935878']
 
 class GringottsController:
 
-    def __init__(self, map_shape, harry_loc, initial_observations):
+    def update_observations_map(self, observations):
         pass
-        # TODO: fill in
-        # Timeout: 60 seconds
+
+    def __init__(self, map_shape, harry_loc, initial_observations):
+        user_map = list([map_shape[0]][map_shape[1]])
+        actual_loc = harry_loc
+        self.get_next_action(self, initial_observations)
 
     def get_next_action(self, observations):
-        pass
-        # TODO: fill in
-        # Timeout: 5 seconds
+        self.update_observations_map(self, observations)
