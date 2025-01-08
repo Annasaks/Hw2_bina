@@ -56,6 +56,30 @@ class GringottsController:
 
         return neighbors
 
+    def update_actions_map(self, action):
+        harry_x, harry_y  = self.actual_loc
+
+        if len(action) == 1:
+            if action[0] == 'wait':
+                pass
+
+            if action[0] == 'collect':
+                self.user_map[harry_x][harry_y] = "P"
+
+        else:
+            x, y = action[1]
+            if action[0] == 'destroy':
+                if self.user_map[x][y] == "VPT" :
+                    self.user_map[x][y] =  "V"
+
+                if self.user_map[x][y] == "PT" or self.user_map[x][y]== "T" :
+                    self.user_map[x][y] = "DT"
+
+            elif action[0] == 'move':
+                self.actual_loc = action[1]
+                if self.user_map[x][y] == "UP" or self.user_map[x][y] == "DT":
+                    self.user_map[x][y] = "P"
+
     def get_next_action(self, observations):
         self.update_observations_map(self,observations)
         return True
