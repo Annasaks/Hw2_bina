@@ -29,10 +29,12 @@ class GringottsController:
                     loc_of_pt = []
                     #I check for each neighbor in my list his status in my map and update it if must to
                     for neighbor in neighbors:
-                        if self.user_map[neighbor[0]][neighbor[1]] == 0 :
+                        if self.user_map[neighbor[0]][neighbor[1]] == 0:
                             self.user_map[neighbor[0]][neighbor[1]] = "PT"
                             num_of_PT += 1
-                            loc_of_pt = [neighbor[0],neighbor[1]]
+                            loc_of_pt = [neighbor[0]][neighbor[1]]
+                        if self.user_map[neighbor[0]][neighbor[1]] == "V":
+                            self.user_map[neighbor[0]][neighbor[1]] = "VPT"
                     if num_of_PT == 1 :
                         self.user_map[loc_of_pt[0]][loc_of_pt[1]] = "T"
 
@@ -41,7 +43,8 @@ class GringottsController:
         self.initial_observations = initial_observations
         self.actual_loc = harry_loc
         self.map_shape = map_shape
-        self.get_next_action(initial_observations)
+        self.user_map[harry_loc[0]][harry_loc[1]] = "P"
+        self.get_next_action(self, initial_observations)
 
     def legal_neighbors(self):
         directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
