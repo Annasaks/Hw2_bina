@@ -12,13 +12,13 @@ class GringottsController:
                     #convert the tuple localisation of the dragon into a list
                     loc_dragon = list(the_observation[1])
                     #update our map
-                    self.user_map[loc_dragon[0], loc_dragon[1]] = "D"
+                    self.user_map[loc_dragon[0]][loc_dragon[1]] = "D"
 
                 if the_observation[0] == "vault" :
                     loc_vault = list(the_observation[1])
                     #if the location is not already define as a passage, then it's a vault
-                    if self.user_map[loc_vault[0], loc_vault[1]] != "P" :
-                        self.user_map[loc_vault[0], loc_vault[1]] = "V"
+                    if self.user_map[loc_vault[0]][loc_vault[1]] != "P" :
+                        self.user_map[loc_vault[0]][loc_vault[1]] = "V"
 
                 if the_observation[1] == "sulfur":
                     #if the observation is sulfur I need to know who are my neighbors
@@ -29,18 +29,21 @@ class GringottsController:
                     loc_of_pt = []
                     #I check for each neighbor in my list his status in my map and update it if must to
                     for neighbor in neighbors:
-                        if self.user_map[neighbor[0], neighbor[1]] == 0 :
-                            self.user_map[neighbor[0], neighbor[1]] = "PT"
+                        if self.user_map[neighbor[0]][neighbor[1]] == 0:
+                            self.user_map[neighbor[0]][neighbor[1]] = "PT"
                             num_of_PT += 1
-                            loc_of_pt = [neighbor[0], neighbor[1]]
+                            loc_of_pt = [neighbor[0]][neighbor[1]]
+                        if self.user_map[neighbor[0]][neighbor[1]] == "V":
+                            self.user_map[neighbor[0]][neighbor[1]] = "VPT"
                     if num_of_PT == 1 :
-                        self.user_map[loc_of_pt[0], loc_of_pt[1]] = "T"
+                        self.user_map[loc_of_pt[0]][loc_of_pt[1]] = "T"
 
     def __init__(self, map_shape, harry_loc, initial_observations):
         self.user_map = [[0] * map_shape[1] for _ in range(map_shape[0])]
         self.initial_observations = initial_observations
         self.actual_loc = harry_loc
         self.map_shape = map_shape
+        self.user_map[harry_loc[0]][harry_loc[1]] = "P"
         self.get_next_action(self, initial_observations)
 
     def legal_neighbors(self):
