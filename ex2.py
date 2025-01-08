@@ -4,7 +4,7 @@ ids = ['337927669','345935878']
 class GringottsController:
 
     def update_observations_map(self, observations):
-        pass
+        return True
 
     def __init__(self, map_shape, harry_loc, initial_observations):
         user_map = list([map_shape[0]][map_shape[1]])
