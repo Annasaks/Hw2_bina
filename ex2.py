@@ -41,7 +41,6 @@ class GringottsController:
         self.initial_observations = initial_observations
         self.actual_loc = harry_loc
         self.map_shape = map_shape
-        self.user_map[harry_loc[0]][harry_loc[1]] = "P"
         self.get_next_action(self, initial_observations)
 
     def legal_neighbors(self):
@@ -71,7 +70,7 @@ class GringottsController:
             x, y = action[1]
             if action[0] == 'destroy':
                 if self.user_map[x][y] == "VPT" :
-                    self.user_map[x][y] = "V"
+                    self.user_map[x][y] =  "V"
 
                 if self.user_map[x][y] == "PT" or self.user_map[x][y]== "T" :
                     self.user_map[x][y] = "DT"
