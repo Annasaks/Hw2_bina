@@ -13,5 +13,5 @@ class GringottsController:
 
     def get_next_action(self, observations):
         self.update_observations_map(self,observations)
-        pass
+        return True
 
