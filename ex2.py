@@ -36,19 +36,6 @@ class GringottsController:
                     if num_of_PT == 1 :
                         self.user_map[loc_of_pt[0], loc_of_pt[1]] = "T"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     def __init__(self, map_shape, harry_loc, initial_observations):
         self.user_map = [[0] * map_shape[1] for _ in range(map_shape[0])]
         self.initial_observations = initial_observations
