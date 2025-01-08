@@ -12,13 +12,13 @@ class GringottsController:
                     #convert the tuple localisation of the dragon into a list
                     loc_dragon = list(the_observation[1])
                     #update our map
-                    self.user_map[loc_dragon[0], loc_dragon[1]] = "D"
+                    self.user_map[loc_dragon[0]][loc_dragon[1]] = "D"
 
                 if the_observation[0] == "vault" :
                     loc_vault = list(the_observation[1])
                     #if the location is not already define as a passage, then it's a vault
-                    if self.user_map[loc_vault[0], loc_vault[1]] != "P" :
-                        self.user_map[loc_vault[0], loc_vault[1]] = "V"
+                    if self.user_map[loc_vault[0]][ loc_vault[1]] != "P" :
+                        self.user_map[loc_vault[0]][loc_vault[1]] = "V"
 
                 if the_observation[1] == "sulfur":
                     #if the observation is sulfur I need to know who are my neighbors
@@ -29,12 +29,12 @@ class GringottsController:
                     loc_of_pt = []
                     #I check for each neighbor in my list his status in my map and update it if must to
                     for neighbor in neighbors:
-                        if self.user_map[neighbor[0], neighbor[1]] == 0 :
-                            self.user_map[neighbor[0], neighbor[1]] = "PT"
+                        if self.user_map[neighbor[0]][neighbor[1]] == 0 :
+                            self.user_map[neighbor[0]][ neighbor[1]] = "PT"
                             num_of_PT += 1
                             loc_of_pt = [neighbor[0], neighbor[1]]
                     if num_of_PT == 1 :
-                        self.user_map[loc_of_pt[0], loc_of_pt[1]] = "T"
+                        self.user_map[loc_of_pt[0]][ loc_of_pt[1]] = "T"
 
     def __init__(self, map_shape, harry_loc, initial_observations):
         self.user_map = [[0] * map_shape[1] for _ in range(map_shape[0])]
@@ -57,6 +57,7 @@ class GringottsController:
         return neighbors
 
     def update_actions_map(self, action):
+
         harry_x, harry_y  = self.actual_loc
 
         if len(action) == 1:
@@ -69,8 +70,8 @@ class GringottsController:
         else:
             x, y = action[1]
             if action[0] == 'destroy':
-                if self.user_map[x][y] == "VPT" :
-                    self.user_map[x][y] =  "V"
+                if self.user_map[x][y] == "VPT":
+                    self.user_map[x][y] = "V"
 
                 if self.user_map[x][y] == "PT" or self.user_map[x][y]== "T" :
                     self.user_map[x][y] = "DT"
@@ -81,6 +82,6 @@ class GringottsController:
                     self.user_map[x][y] = "P"
 
     def get_next_action(self, observations):
-        self.update_observations_map(self,observations)
+        self.update_observations_map(self, observations)
         return True
 
