@@ -83,7 +83,30 @@ class GringottsController:
                 if self.user_map[x][y] == "UP" or self.user_map[x][y] == "DT":
                     self.user_map[x][y] = "P"
 
+    def decision (self):
+        #The current location of harry before he does an action
+        x, y = self.actual_loc
+        if self.user_map[x][y] == "V":
+            return tuple("collect")
+
+        neighbors = self.legal_neighbors()
+        for neighbor in neighbors:
+            if self.user_map[neighbor[0]][neighbor[1]] == "V":
+                return tuple(("move", neighbor))
+
+        for neighbor in neighbors:
+            if self.user_map[neighbor[0]][neighbor[1]] == "VPT":
+                return tuple(("destroy", neighbor))
+
+        for neighbor in neighbors:
+            if self.user_map[neighbor[0]][neighbor[1]] == "UP":
+                return tuple(("move", neighbor))
+
+        #else si les neighbors ne sont pas ni V, VPT ou UP alors ...
+
     def get_next_action(self, observations):
         self.update_observations_map(self,observations)
-        return True
+        action = self.decison()
+        self.update_actions_map(action)
+        return action
 
